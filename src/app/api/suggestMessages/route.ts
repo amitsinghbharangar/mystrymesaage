@@ -1,9 +1,22 @@
 import { NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+interface ProcessEnv {
+    GEMINI_API_KEY: string; // Mark as required
+}
+const getEnv = (key: string): string => {
+  const value = process.env[key];
+  if (!value) {
+    throw new Error(`Environment variable ${key} is not defined`);
+  }
+  return value;
+};
+const apiKey = getEnv("GEMINI_API_KEY");
 
 export async function POST(request: Request) {
+  
   try {
-    const genAI = new GoogleGenerativeAI("AIzaSyBowZZjDbS1NnJJjTsCrKjT8q_ZMPm3r7I");
+
+    const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     // Parse the request body

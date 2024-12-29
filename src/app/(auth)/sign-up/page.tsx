@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation"
 import { signUpSchema } from "@/schemas/signUpSchema"
 import axios,{AxiosError} from 'axios'
 import { ApiResponse } from "@/types/ApiResponse"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Loader2 } from "lucide-react"
@@ -23,7 +23,7 @@ export default function page() {
   const [usernameMessage, setUsernameMessage] =useState('')
   const [isCheckingUsername,setIscheckingUsername] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const debounced = useDebounceCallback(setUserName,300)
+  const debounced = useDebounceCallback(setUserName,800)
   const router = useRouter()
 
   // zod implementation 
@@ -63,7 +63,7 @@ export default function page() {
         title:'success',
         description:response.data.message
       })
-      router.replace(`/verify/${userName}`);
+      router.push('/verify/{userName}');
       setIsSubmitting(false);
     } catch (error) {
       console.error("Error in signup user", error)
@@ -78,9 +78,9 @@ export default function page() {
     }
   }
   return (
-    <div className="md:flex  md:bg-blue-200">
+    <div className="  md:flex  md:bg-blue-200">
         <div className="flex-1 justify-center md:p-4 min-h-screen ">
-    <div className=" sm:max-w-2xl  md:max-w-6xl p-8 space-y-6 bg-white rounded-lg shadow-md">
+    <div className=" sm:max-w-2xl  md:max-w-6xl p-8 space-y-6 bg-white rounded-lg md:shadow-md">
       <div className="text-center">
         <h1 className="text-3xl text-blue-700 font-extrabold tracking-tight lg:text-4xl mb-6">
           Join Mystry Message

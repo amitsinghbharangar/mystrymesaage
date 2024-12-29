@@ -1,18 +1,17 @@
 import { dbConnect } from "@/lib/dbConnect";
 import { UserModel } from "@/model/User";
 
+
 export async function POST(request:Request){
     await dbConnect()
     try{
-        const {searchParams} = new URL(request.url);
-       
-        const userName = searchParams.get('userName');
-        const code = searchParams.get('code');
+        const { userName, code } = await request.json();
         const user = await UserModel.findOne({userName:userName})
         if(!user){
+            console.log(`${userName} ${code} not found`)
             return Response.json({
             success:false,
-            message:"User not found"
+            message:`${userName} not found`
             },{status:500})
         }
         const isCodeValid = user.verifyCode === code;

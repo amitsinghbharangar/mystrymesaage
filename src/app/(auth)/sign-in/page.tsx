@@ -54,6 +54,15 @@ export default function page() {
   }
   return (
     <div className="  md:flex  md:bg-blue-200">
+      <div className="flex-1 items-center justify-center align-middle">
+    <Image 
+  src="illustration.svg" 
+  alt="Description of the image" 
+  width={500} 
+  height={300} 
+  className="bg-blue-200 hidden md:flex self-center  "
+/>
+   </div>
         <div className="flex-1 justify-center md:p-4 min-h-screen ">
     <div className=" sm:max-w-2xl  md:max-w-6xl p-8 space-y-6 bg-white rounded-lg md:shadow-md">
       <div className="text-center">
@@ -118,16 +127,6 @@ export default function page() {
       </div>
     </div>
    </div>
-   <div className="flex-1 items-center justify-center align-middle">
-    <Image 
-  src="illustration.svg" 
-  alt="Description of the image" 
-  width={500} 
-  height={300} 
-  className="bg-blue-200 hidden md:flex self-center  "
-/>
-   </div>
-   
     </div>
    
   )

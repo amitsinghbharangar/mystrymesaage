@@ -7,10 +7,10 @@ import { NextRequest } from "next/server";
 export async function POST(request:NextRequest){
     await dbConnect()
     try{
-        const {userName, email, password} = await request.json()
+        const {username, email, password} = await request.json()
         // find the username if exists 
         const existingUserVerifiedByUsername = await UserModel.findOne({
-            userName,
+            username,
             isVerified:true
         })
 
@@ -49,7 +49,7 @@ export async function POST(request:NextRequest){
     
         //  now create user
             const newUser = new UserModel({
-                userName,
+                username,
                 email,
                 password:hashedPassword,
                 isVerified:false,
@@ -62,7 +62,7 @@ export async function POST(request:NextRequest){
         }
 
         // send verification email
-        const emailResponse = await sendVerificationEmail(email,userName,verifyCode)
+        const emailResponse = await sendVerificationEmail(email,username,verifyCode)
         if(!emailResponse.success){
             return Response.json({
                 success:false,

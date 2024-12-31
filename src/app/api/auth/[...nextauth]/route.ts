@@ -1,16 +1,16 @@
-import NextAuth from "next-auth";
+import NextAuth, { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from 'bcryptjs'
 import { dbConnect } from "@/lib/dbConnect";
 import { UserModel } from "@/model/User";
 
-const handler =  NextAuth({
+export const authOptions: AuthOptions = {
     providers:[
         CredentialsProvider({
             id:"credentials",
             name:"Credentials",
             credentials:{
-                email:{label:"Email", type:"text", placeholder:"Your email"},
+                username:{label:"Username", type:"text", placeholder:"username"},
                 password:{label:"Password", type:"password"}
             },
             async authorize(credentials:any):Promise<any>{
@@ -18,8 +18,8 @@ const handler =  NextAuth({
                 try{
                     const user = await UserModel.findOne({
                         $or:[
+                            {username:credentials.identifier},
                             {email:credentials.identifier},
-                            {userName:credentials.identifier}
                         ]
                     })
                     if (!user){
@@ -46,7 +46,7 @@ const handler =  NextAuth({
                 token._id = user._id?.toString();
                 token.isVerified = user.isVerified;
                 token.isAcceptingMessages = user.isAcceptingMessages; 
-                token.userName = user.username;
+                token.username = user.username;
             }
             return token;
         },
@@ -57,7 +57,7 @@ const handler =  NextAuth({
                 session.user.isAcceptingMessages = token.isAcceptingMessages;
                 session.user.username = token.username
             }
-            return session
+            return session;
         }
     },
     pages:{
@@ -67,5 +67,6 @@ const handler =  NextAuth({
         strategy:"jwt"
     },
     secret:process.env.AUTH_SECRET
-})
+}
+const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };

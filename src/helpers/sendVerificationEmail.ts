@@ -5,7 +5,7 @@ import { ApiResponse } from '@/types/ApiResponse';
 
 export async function sendVerificationEmail(
     email:string,
-    userName:string,
+    username:string,
     verifyCode:string,
 ): Promise<ApiResponse>{
     console.log("send verification is running")
@@ -14,7 +14,7 @@ export async function sendVerificationEmail(
         from: 'Acme <onboarding@resend.dev>',
         to: email,
         subject: 'Mystry message | Verification code',
-        react: VerificationEmail({userName,otp:verifyCode})
+        react: VerificationEmail({username,otp:verifyCode})
         });
         
         return{success:true, message:"Verification email send successfully."}

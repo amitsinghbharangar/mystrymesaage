@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]/options";
+import { authOptions } from "../auth/[...nextauth]/route";
 import { dbConnect } from "@/lib/dbConnect";
 import { UserModel } from "@/model/User";
 import { User } from "next-auth";
@@ -32,7 +32,7 @@ export async function GET(request:Request){
             return Response.json(
             {
                 success:false,
-                message:"User not found"
+                message:"No message found"
             },
             {status:404}
         )

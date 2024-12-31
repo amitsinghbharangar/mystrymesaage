@@ -19,18 +19,18 @@ import Image from "next/image"
 
 export default function page() {
   const { toast } = useToast()
-  const [userName, setUserName] = useState('')
+  const [username, setUsername] = useState('')
   const [usernameMessage, setUsernameMessage] =useState('')
   const [isCheckingUsername,setIscheckingUsername] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const debounced = useDebounceCallback(setUserName,800)
+  const debounced = useDebounceCallback(setUsername,1200)
   const router = useRouter()
 
   // zod implementation 
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver:zodResolver(signUpSchema),
     defaultValues:{
-      userName:'',
+      username:'',
       email:'',
       password:'',
     }
@@ -38,11 +38,11 @@ export default function page() {
 
   useEffect(()=>{
     const checkUsernameUnique = async () => {
-      if(userName){
+      if(username){
         setIscheckingUsername(true)
         setUsernameMessage('')
         try {
-          const response = await axios.get(`/api/checkUsernameUnique?userName=${userName}`);
+          const response = await axios.get(`/api/checkUsernameUnique?username=${username}`);
           setUsernameMessage(response.data.message)
         } catch (error) {
           const axiosError =error as AxiosError<ApiResponse>;
@@ -53,7 +53,7 @@ export default function page() {
       }
     }
     checkUsernameUnique();
-  },[userName])
+  },[username])
 
   const onSubmit = async (data:z.infer<typeof signUpSchema>) =>{
     setIsSubmitting(true)
@@ -63,7 +63,7 @@ export default function page() {
         title:'success',
         description:response.data.message
       })
-      router.push('/verify/{userName}');
+      router.push('/verify/{username}');
       setIsSubmitting(false);
     } catch (error) {
       console.error("Error in signup user", error)
@@ -94,7 +94,7 @@ export default function page() {
         className="space-y-6">
           <FormField
             control={form.control}
-            name="userName"
+            name="username"
             render={({ field }) => (
             <FormItem>
               <FormLabel>Username</FormLabel>

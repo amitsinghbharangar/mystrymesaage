@@ -16,7 +16,7 @@ export default function VerifyAccount (){
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const params = useParams();
-  const userName = params.username;
+  const username = params.username;
 
   const {toast} = useToast()
   
@@ -26,14 +26,14 @@ export default function VerifyAccount (){
 
   const onSubmit = async (data:z.infer<typeof verifySchema>) =>{
     if(params){
-      console.log(userName)
+      console.log(username)
     }else{
       console.log("userName is not found ")
       return
     }
     setIsSubmitting(true)
     try {
-      const response = await axios.post<ApiResponse>('/api/verifyCode', {userName,code:data.code});
+      const response = await axios.post<ApiResponse>('/api/verifyCode', {username,code:data.code});
       toast({
         title:response.data.message,
         description:"You will be redirected to login page."

@@ -1,5 +1,4 @@
 'use client'
-
 import { signOut, useSession } from 'next-auth/react'
 import React from 'react'
 import { User } from 'next-auth'
@@ -14,9 +13,9 @@ const Navbar = () => {
       <div className='container mx-auto flex flex-col md:flex-row justify-between items-center'>
         <a href='#' className='text-xl font-bold mb-4 md:mb-0'>Mystry Message</a>
         {
-            session ? (
+            session ? ( 
                 <>
-                    <span className='mr-4'>Welcome, {user?.username || user?.email}</span>
+                    <span className='mr-4'>Welcome, {user?.username }</span>
                     <Button onClick={()=>signOut()} className='w-full md:w-auto'>Logout</Button>
                 </>
             ) : (

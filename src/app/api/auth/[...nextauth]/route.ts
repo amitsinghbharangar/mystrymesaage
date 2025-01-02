@@ -23,7 +23,7 @@ export const authOptions: AuthOptions = {
                         ]
                     })
                     if (!user){
-                        throw new Error("No user find with this email");
+                        throw new Error("No user find with this username or email");
                     }
                     if(!user.isVerified){
                         throw new Error("Please verify your account before login");

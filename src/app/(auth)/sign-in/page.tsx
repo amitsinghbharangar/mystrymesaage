@@ -42,6 +42,7 @@ export default function page() {
       password:data.password
     })
     if(result?.error){
+      setIsSubmitting(false)
       toast({
         title:"Login failed",
         description:result.error,

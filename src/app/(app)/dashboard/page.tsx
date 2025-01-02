@@ -22,14 +22,11 @@ const page = () => {
     const [messages,setMessages] = useState<Message[]>([])
     const [isLoading,setIsLoading] = useState(false)
     const [isSwitchLoading,setIsSwitchLoading] = useState(false)
-    const [username,setUsername] = useState('')
     const {toast} = useToast();
     
     const handleDeleteMessage = (messageId:string)=>{
         setMessages(messages.filter((message)=>message._id !== messageId))
     }
-
-    
 
     const form = useForm({
         resolver:zodResolver(acceptMessageSchema)
@@ -120,14 +117,11 @@ const page = () => {
         })
     }
 
-    // if(!session || !session.user){
-    //     return <div>Please Login</div>
-    // }
     return (
     <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl">
-        <h1 className="text-4xl font-bold mb-4">User Dashboard</h1>
+        <h1 className="text-4xl font-bold mb-4">My Dashboard</h1>
         <div className="mb-4 ">
-            <h2 className="text-lg font-semibold mb-2">Copy your Unique Link</h2>{' '}
+            <h2 className="text-lg font-semibold mb-2">Copy your Unique Link & share with friends</h2>{' '}
             <div className="flex items-center">
                 <input
                     type="text"
@@ -136,7 +130,7 @@ const page = () => {
                     className="input input-bordered w-full p-2 mr-2"
                     aria-label="Profile URL"
                 />
-                <Button onClick={copyToClipboard}>Copy</Button>
+                <Button variant='outline'  onClick={copyToClipboard}>Copy</Button>
             </div>
         </div>
         

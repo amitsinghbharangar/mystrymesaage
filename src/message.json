@@ -1,0 +1,27 @@
+[
+    {
+        "title" : "Message from User123",
+        "content":"Hey, How are you doing Today?",
+        "received":"10 minute Ago"
+    },
+    {
+        "title" : "Message from SecretAdmire",
+        "content":"I really liked your recent post!",
+        "received":"2 hours ago"
+    },
+    {
+        "title" : "Message from MystryGuest",
+        "content":"Do you have any book recommendation ?",
+        "received":"3 hours ago"
+    },
+    {
+        "title" : "Message from MrGhost",
+        "content":"Hey, Do you beleive in ghost ?",
+        "received":"4 hours ago"
+    },
+    {
+        "title" : "Message from Secretking",
+        "content":"Hey, Do you know who i am?",
+        "received":"5 hours ago"
+    }
+]

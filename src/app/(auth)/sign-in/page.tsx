@@ -54,7 +54,7 @@ export default function page() {
     }
   }
   return (
-    <div className="  md:flex  md:bg-blue-200">
+    <div className="  md:flex  md:bg-blue-200 pt-16">
       <div className="flex-1 items-center justify-center align-middle">
     <Image 
   src="illustration.svg" 

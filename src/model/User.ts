@@ -18,6 +18,29 @@ const MessageSchema : Schema<Message> = new Schema({
     }
 })
 
+export interface Reply extends Document {
+  messageId: Schema.Types.ObjectId; // Reference to the related message
+  content: string;
+  createdAt: Date;
+}
+
+const ReplySchema: Schema<Reply> = new Schema({
+  messageId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Message', // Reference to Message collection
+    required: true,
+  },
+  content: {
+    type: String,
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    required: true,
+    default: Date.now,
+  },
+});
+
 export interface User extends Document{
     username :string;
     email :string;
@@ -26,7 +49,8 @@ export interface User extends Document{
     verifyCode:string;
     verifyCodeExpiry:Date;
     isAcceptingMessage:boolean;
-    messages:Message[]  
+    messages:Message[];
+    reply:Reply[]  
 
 }
 
@@ -63,7 +87,8 @@ const UserSchema : Schema<User> = new Schema({
         type:Boolean,
         default:false,
     },
-    messages:[MessageSchema]
+    messages:[MessageSchema],
+    reply:[ReplySchema]
 })
 
 export const UserModel = (mongoose.models.User as mongoose.Model<User>) || mongoose.model<User>("User",UserSchema)

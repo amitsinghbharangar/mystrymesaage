@@ -130,7 +130,7 @@ const page = () => {
                     className="input input-bordered w-full p-2 mr-2"
                     aria-label="Profile URL"
                 />
-                <Button variant='outline'  onClick={copyToClipboard}>Copy</Button>
+                <Button variant='outline' color="blue" onClick={copyToClipboard}>Copy</Button>
             </div>
         </div>
         
@@ -162,11 +162,12 @@ const page = () => {
         </Button>
         <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
             {messages.length > 0 ? (
-                messages.map((message,index)=>(
+                messages.map((message,index,)=>(
                     <MessageCard
                         key={String(message._id)} // React handles this internally
                         message={message} // Pass `message` explicitly
                         onMessageDelete={handleDeleteMessage}
+                        
                     />
                 ))
             ) : (

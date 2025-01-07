@@ -78,7 +78,7 @@ export default function page() {
     }
   }
   return (
-    <div className="  md:flex  md:bg-blue-200">
+    <div className="  md:flex  md:bg-blue-200 pt-16">
         <div className="flex-1 justify-center md:p-4 min-h-screen ">
     <div className=" sm:max-w-2xl  md:max-w-6xl p-8 space-y-6 bg-white rounded-lg md:shadow-md">
       <div className="text-center">

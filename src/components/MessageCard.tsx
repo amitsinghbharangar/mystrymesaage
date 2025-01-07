@@ -59,7 +59,7 @@ const MessageCard = ({message, onMessageDelete}:MessageCardProps) => {
   const submit = async ()=>{
     setIsSubmitting(true)
     try {
-      const response = await axios.post<ApiResponse>('/api/reply',{username,content:reply,messageId:message._id})
+      const response = await axios.post<ApiResponse>('/api/reply',{content:reply,messageId:message._id})
       toast({
         title:response.data.message,
         description:"You can see it on you reply page."
@@ -71,7 +71,7 @@ const MessageCard = ({message, onMessageDelete}:MessageCardProps) => {
       const axiosError =error as AxiosError<ApiResponse>;
       let errorMessage = axiosError.response?.data.message;
       toast({
-        title:"Failed to send.",
+        title:"Failed to send the message.",
         description:errorMessage,
         variant:"destructive"
       })

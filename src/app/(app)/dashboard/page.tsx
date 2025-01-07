@@ -25,6 +25,7 @@ const page = () => {
     const {toast} = useToast();
     
     const handleDeleteMessage = (messageId:string)=>{
+        console.log("message refresh chl gya")
         setMessages(messages.filter((message)=>message._id !== messageId))
     }
 

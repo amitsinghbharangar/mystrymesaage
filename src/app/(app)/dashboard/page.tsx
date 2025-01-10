@@ -78,6 +78,7 @@ const page = () => {
             })
         } finally{
             setIsSwitchLoading(false)
+            setIsLoading(false);
         }
     },[setIsLoading, setMessages])
 

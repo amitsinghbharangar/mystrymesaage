@@ -31,7 +31,7 @@ export async function POST(request: Request) {
     const result = await model.generateContent(prompt);
     console.log( result.response.text())
     // Return the response
-    return NextResponse.json({ success:true,message: result.response.text() }, { status: 200 });
+    return Response.json({ success:true, message: result.response.text() }, { status: 200 });
   } catch (error) {
     console.error("Error generating content:", error);
     return NextResponse.json({ error: "Failed to generate content" }, { status: 500 });

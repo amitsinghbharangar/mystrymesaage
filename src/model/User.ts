@@ -21,7 +21,7 @@ const MessageSchema : Schema<Message> = new Schema({
 export interface Reply extends Document {
   message: string; 
   content: string;
-  createdAt: Date;
+  createAt: Date;
 }
 
 const ReplySchema: Schema<Reply> = new Schema({
@@ -33,7 +33,7 @@ const ReplySchema: Schema<Reply> = new Schema({
     type: String,
     required: true,
   },
-  createdAt: {
+  createAt: {
     type: Date,
     required: true,
     default: Date.now,

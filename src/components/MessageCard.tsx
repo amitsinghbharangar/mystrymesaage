@@ -1,5 +1,5 @@
 'use client'
-import { messageSchema } from "@/schemas/messageSchema"
+
 import {
   Card,
   CardContent,
@@ -21,17 +21,17 @@ import {
 } from "@/components/ui/alert-dialog"
 import { formatDistanceToNow } from 'date-fns';
 import { Button } from "./ui/button"
-import { Loader2, X} from "lucide-react"
-import { Message } from "@/model/User"
+import {X} from "lucide-react"
+import { Message, User } from "@/model/User"
 import { useToast } from "@/hooks/use-toast"
 import { ApiResponse } from "@/types/ApiResponse"
 import axios, { AxiosError } from "axios"
 
 import { Input } from "./ui/input"
-import { useParams, useRouter } from "next/navigation"
+import {useParams, useRouter } from "next/navigation"
 import { useState } from "react"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
+import { useSession } from "next-auth/react";
+
 
 type MessageCardProps = {
   message:Message;
@@ -40,7 +40,10 @@ type MessageCardProps = {
 
 }
 const MessageCard = ({message, onMessageDelete}:MessageCardProps) => {
-
+  
+  const {data : session} = useSession();
+  const user:User = session?.user as User;
+  const username = user?.username
   const {toast} = useToast();
   const handleDeleteConfirm = async () => {
     const response = await axios.delete<ApiResponse>(`/api/deleteMessage/${message._id}`)
@@ -59,7 +62,7 @@ const MessageCard = ({message, onMessageDelete}:MessageCardProps) => {
   const submit = async ()=>{
     setIsSubmitting(true)
     try {
-      const response = await axios.post<ApiResponse>('/api/reply',{content:reply,message:message.content})
+      const response = await axios.post<ApiResponse>('/api/reply',{username,content:reply,message:message.content})
       toast({
         title:response.data.message,
         description:"You can see it on you reply page."

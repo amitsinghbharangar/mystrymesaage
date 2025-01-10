@@ -29,9 +29,9 @@ export async function POST(request: Request) {
 
     // Generate content using the AI model
     const result = await model.generateContent(prompt);
-
+    console.log( result.response.text())
     // Return the response
-    return NextResponse.json({ response: result.response.text() }, { status: 200 });
+    return NextResponse.json({ success:true,message: result.response.text() }, { status: 200 });
   } catch (error) {
     console.error("Error generating content:", error);
     return NextResponse.json({ error: "Failed to generate content" }, { status: 500 });

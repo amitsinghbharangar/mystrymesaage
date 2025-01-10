@@ -59,7 +59,7 @@ const MessageCard = ({message, onMessageDelete}:MessageCardProps) => {
   const submit = async ()=>{
     setIsSubmitting(true)
     try {
-      const response = await axios.post<ApiResponse>('/api/reply',{content:reply,messageId:message._id})
+      const response = await axios.post<ApiResponse>('/api/reply',{content:reply,message:message.content})
       toast({
         title:response.data.message,
         description:"You can see it on you reply page."

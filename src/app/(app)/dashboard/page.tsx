@@ -25,8 +25,9 @@ const page = () => {
     const {toast} = useToast();
     
     const handleDeleteMessage = (messageId:string)=>{
+        fetchMessages(true)
         console.log("message refresh chl gya")
-        setMessages(messages.filter((message)=>message._id !== messageId))
+        //setMessages(messages.filter((message)=>message._id !== messageId))
     }
 
     const form = useForm({

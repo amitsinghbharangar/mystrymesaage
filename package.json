@@ -30,6 +30,7 @@
     "embla-carousel-react": "^8.5.1",
     "lucide-react": "^0.469.0",
     "mongoose": "^8.9.2",
+    "mongoose-unique-validator": "^4.0.1",
     "next": "15.1.2",
     "next-auth": "^4.24.11",
     "openai": "^4.77.0",
@@ -47,6 +48,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@types/bcryptjs": "^2.4.6",
+    "@types/mongoose-unique-validator": "^1.0.9",
     "@types/next-auth": "^3.13.0",
     "@types/node": "^20",
     "@types/react": "^19",

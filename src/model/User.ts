@@ -1,5 +1,5 @@
 import mongoose, {Schema, Document} from 'mongoose'
-
+import uniqueValidator from "mongoose-unique-validator";
 export interface Message extends Document{
     content :string;
     createAt :Date   
@@ -19,15 +19,14 @@ const MessageSchema : Schema<Message> = new Schema({
 })
 
 export interface Reply extends Document {
-  messageId: Schema.Types.ObjectId; // Reference to the related message
+  message: string; 
   content: string;
   createdAt: Date;
 }
 
 const ReplySchema: Schema<Reply> = new Schema({
-  messageId: {
-    type: Schema.Types.ObjectId,
-    ref: 'Message', // Reference to Message collection
+  message: {
+    type: String,
     required: true,
   },
   content: {
@@ -90,5 +89,6 @@ const UserSchema : Schema<User> = new Schema({
     messages:[MessageSchema],
     reply:[ReplySchema]
 })
+UserSchema.plugin(uniqueValidator, { message: "{PATH} is already taken." });
 
 export const UserModel = (mongoose.models.User as mongoose.Model<User>) || mongoose.model<User>("User",UserSchema)

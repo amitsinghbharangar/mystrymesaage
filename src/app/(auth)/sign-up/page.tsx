@@ -63,7 +63,7 @@ export default function page() {
         title:'success',
         description:response.data.message
       })
-      router.push('/verify/{username}');
+      router.push(`/verify/${data.username}`)
       setIsSubmitting(false);
     } catch (error) {
       console.error("Error in signup user", error)

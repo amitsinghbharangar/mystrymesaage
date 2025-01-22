@@ -1,4 +1,6 @@
 'use client'
+
+import ReplyCard from '@/components/ReplyCard';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { Reply, User } from '@/model/User';
@@ -6,22 +8,24 @@ import { ApiResponse } from '@/types/ApiResponse';
 import axios, { AxiosError } from 'axios';
 import { Loader2, RefreshCcw } from 'lucide-react';
 import { useParams } from 'next/navigation';
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 const page = () => {
   
-    const [messages,setMessages] = useState<Reply[]>([])
+    const [replies,setReplies] = useState<Reply[]>([])
     const [isLoading,setIsLoading] = useState(false)
     
     const {toast} = useToast();
-  const params = useParams();
-  const username = params.username;
-  const fetchMessages = useCallback(async(refresh:boolean = false)=>{
+    const params = useParams();
+    const username = params.username;
+    console.log(username)
+    const fetchMessages = useCallback(async(refresh:boolean = false)=>{
         setIsLoading(true);
-        
         try {
-            const response = await axios.get<ApiResponse>('/api/getReplies');
-            
+            const response = await axios.get<ApiResponse>(`/api/getReplies?username=${username}`);
+            setReplies(response.data.replies || [])
+            console.log(response)
+            console.log("hello")
             if(refresh){
                 toast({
                     title:"Refreshed",
@@ -38,15 +42,20 @@ const page = () => {
         } finally{
             setIsLoading(false)
         }
-    },[setIsLoading, setMessages])
+    },[setIsLoading, setReplies])
+    useEffect(() => {
+    fetchMessages();
+  }, [fetchMessages]);
+    
+    
+    
   return (
     <>
-    <div className='sm:max-w-2xl  md:max-w-6xl p-6 space-y-6 bg-white rounded-lg shadow-lg mx-auto'>
-      <h1 className="text-lg font-semibold text-gray-800">
-        Replies made by <span className="text-blue-500">@{username}</span>
+    
+        <div className='mt-4 sm:max-w-2xl  md:max-w-6xl p-6 space-y-6 bg-white rounded-lg shadow-lg mx-auto'>
+            <h1 className="text-lg font-semibold text-gray-800">
+        All Replies  by <span className="text-blue-500">@{username}</span>
       </h1>
-    </div>
-        <div className='sm:max-w-2xl  md:max-w-6xl p-6 space-y-6 bg-white rounded-lg shadow-lg mx-auto'>
     <Button 
             className="mt-4"
             variant='outline'
@@ -63,18 +72,19 @@ const page = () => {
         </Button>
 
         <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
-            {messages.length > 0 ? (
-                messages.map((message,index,)=>(
-                    <MessageCard
-                        key={String(message._id)} // React handles this internally
-                        message={message} // Pass `message` explicitly
-                        onMessageDelete={handleDeleteMessage}
-                        
-                    />
-                ))
-            ) : (
-                <p>No message to display.</p>
-            )}
+            {isLoading ? (
+        <p>Loading...</p>
+    ) : replies.length > 0 ? (
+        replies.map((message) => (
+            <ReplyCard
+                key={String(message._id)}
+                message={message}
+                
+            />
+        ))
+    ) : (
+        <p>No messages to display.</p>
+    )}
         </div>
         </div>
     </>
